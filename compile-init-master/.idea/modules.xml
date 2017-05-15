@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/compile-init-master.iml" filepath="$PROJECT_DIR$/compile-init-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/findview-annotion/findview-annotion.iml" filepath="$PROJECT_DIR$/findview-annotion/findview-annotion.iml" />
+      <module fileurl="file://$PROJECT_DIR$/findview-annotion-init/findview-annotion-init.iml" filepath="$PROJECT_DIR$/findview-annotion-init/findview-annotion-init.iml" />
+    </modules>
+  </component>
+</project>
