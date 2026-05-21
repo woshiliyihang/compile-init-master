@@ -24,10 +24,30 @@ jobs:
       - name: Checkout HAL repository
         uses: actions/checkout@v4
 
-      - name: Show runner disk/memory
+      - name: Show disk usage (before cleanup)
         run: |
-          df -h
-          free -h
+          echo "== root disk =="
+          df -h /
+          echo "== workspace disk =="
+          df -h "$GITHUB_WORKSPACE"
+          echo "== top big dirs in / =="
+          sudo du -x -h -d1 / | sort -h | tail -n 20
+
+      - name: Free disk space on runner
+        run: |
+          set -euxo pipefail
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo apt-get clean
+          docker system prune -af || true
+          sudo rm -rf /var/lib/docker || true
+
+      - name: Show disk usage (after cleanup)
+        run: |
+          df -h /
+          df -h "$GITHUB_WORKSPACE"
 
       - name: Install dependencies
         run: |
@@ -50,7 +70,7 @@ jobs:
           mkdir -p "$AOSP_DIR"
           cd "$AOSP_DIR"
           repo init -u https://android.googlesource.com/platform/manifest -b "${{ inputs.aosp_ref }}"
-          repo sync -c --no-clone-bundle --no-tags -j4
+          repo sync -c --no-clone-bundle --no-tags -j3
 
       - name: Copy HAL sources into AOSP tree
         run: |
