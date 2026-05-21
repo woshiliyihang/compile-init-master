@@ -1,0 +1,5 @@
+service vendor.jason-hal /vendor/bin/hw/android.hardware.jason-service
+    class hal
+    user system
+    group system
+
